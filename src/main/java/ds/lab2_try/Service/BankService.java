@@ -1,14 +1,9 @@
 package ds.lab2_try.Service;
 
 import ds.lab2_try.BankAccount.BankAccount;
-import ds.lab2_try.BankAccount.IBankAccount;
 import ds.lab2_try.Repo.BankRepo;
-import org.hibernate.jdbc.Expectation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.Optional;
 
 @Service
 public class BankService {
