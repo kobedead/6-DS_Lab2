@@ -47,7 +47,6 @@ public class BankService {
      * @param email     email of the owner
      * @param accountID the ID of the bank account
      * @param money     the money that gets added
-     * @return the updated entity
      */
     public void addBalance(String email, Long accountID, Double money) {
 
@@ -62,12 +61,11 @@ public class BankService {
 
 
     /**
-     * remove to account balace.
+     * remove from account balance.
      *
      * @param email     email of the owner
      * @param accountID the ID of the bank account
      * @param money     the money that gets removed
-     * @return the updated entity
      */
     public void removeBalance(String email, Long accountID, Double money) {
 
@@ -82,6 +80,24 @@ public class BankService {
         }
 
         bankAccount.addBalance(-money);
+        bankRepo.save(bankAccount);
+    }
+
+
+    /**
+     * delete all account balace.
+     *
+     * @param email     email of the owner
+     * @param accountID the ID of the bank account
+     */
+    public void deleteBalance(String email, Long accountID) {
+
+        // Find the BankAccount by email and accountId
+        BankAccount bankAccount = bankRepo.findByUserEmailAndAccountId(email, accountID)
+                .orElseThrow(() -> new RuntimeException("BankAccount not found for email: " + email + " and account ID: " + accountID));
+
+
+        bankAccount.addBalance(-bankAccount.getBalance());
         bankRepo.save(bankAccount);
     }
 

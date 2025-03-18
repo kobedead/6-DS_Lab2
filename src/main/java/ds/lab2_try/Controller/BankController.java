@@ -2,6 +2,7 @@ package ds.lab2_try.Controller;
 
 import ds.lab2_try.Person.Person;
 import ds.lab2_try.Service.BankService;
+import jdk.jfr.Description;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -62,6 +63,13 @@ public class BankController {
     public ResponseEntity<String> removeBalance(@PathVariable String email, @PathVariable Long accountID, @RequestBody Double money) {
         bankService.removeBalance(email, accountID, money);
         return ResponseEntity.ok("money removed succesfully");
+    }
+
+
+    @DeleteMapping("/{email}/account/{accountID}")
+    public ResponseEntity<String> deleteBalance(@PathVariable String email, @PathVariable Long accountID) {
+        bankService.deleteBalance(email, accountID);
+        return ResponseEntity.ok("money deleted succesfully");
     }
 
 
