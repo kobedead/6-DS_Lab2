@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 @Entity
-public class BankAccount implements IBankAccount {
+public class BankAccount  {
 
 
     @OneToMany(mappedBy = "bankAccount", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -28,22 +28,19 @@ public class BankAccount implements IBankAccount {
     }
 
 
-    @Override
+
     public Double getBalance() {
         return balance;
     }
 
-    @Override
     public void addBalance(Double money) {
         balance+= money;
     }
 
-    @Override
     public List<Person> getOwners() {
         return owners;
     }
 
-    @Override
     public void AddOwner(Person person) {
         owners.add(person);
     }
