@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
-
+import java.util.logging.Logger;
 
 
 @RestController
@@ -17,6 +17,8 @@ import java.util.Optional;
 public class BankController {
 
     private final BankService bankService;
+
+    Logger logger = Logger.getLogger(BankController.class.getName());
 
     @Autowired
     public BankController(BankService bankService) {
@@ -33,7 +35,10 @@ public class BankController {
      */
     @GetMapping("/{email}/account/{accountID}")
     public Double getBalance(@PathVariable String email, @PathVariable Long accountID) {
-        return bankService.getBalance(email, accountID);
+        Double balance = bankService.getBalance(email, accountID);
+        logger.info("get" + balance);
+        return balance;
+
     }
 
 
@@ -47,7 +52,9 @@ public class BankController {
      */
     @PutMapping("/{email}/account/{accountID}/addBalance")
     public ResponseEntity<String> addBalance(@PathVariable String email, @PathVariable Long accountID, @RequestBody Double money) {
-        bankService.addBalance(email, accountID, money);
+        Double updatedBalance = bankService.addBalance(email, accountID, money);
+        logger.info("put(add)" + updatedBalance);
+
         return ResponseEntity.ok("money added succesfully");
     }
 
@@ -61,14 +68,18 @@ public class BankController {
      */
     @PutMapping("/{email}/account/{accountID}/removeBalance")
     public ResponseEntity<String> removeBalance(@PathVariable String email, @PathVariable Long accountID, @RequestBody Double money) {
-        bankService.removeBalance(email, accountID, money);
+        Double updatedBalance = bankService.removeBalance(email, accountID, money);
+        logger.info("put(remove)" + updatedBalance);
+
         return ResponseEntity.ok("money removed succesfully");
     }
 
 
     @DeleteMapping("/{email}/account/{accountID}")
     public ResponseEntity<String> deleteBalance(@PathVariable String email, @PathVariable Long accountID) {
-        bankService.deleteBalance(email, accountID);
+        Double updatedBalance = bankService.deleteBalance(email, accountID);
+        logger.info("delete" + updatedBalance);
+
         return ResponseEntity.ok("money deleted succesfully");
     }
 

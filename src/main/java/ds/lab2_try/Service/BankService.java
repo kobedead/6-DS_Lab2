@@ -43,7 +43,7 @@ public class BankService {
      * @param accountID the ID of the bank account
      * @param money     the money that gets added
      */
-    public void addBalance(String email, Long accountID, Double money) {
+    public Double addBalance(String email, Long accountID, Double money) {
 
         // Find the BankAccount by email and accountId
         BankAccount bankAccount = bankRepo.findByUserEmailAndAccountId(email, accountID)
@@ -52,6 +52,8 @@ public class BankService {
         bankAccount.addBalance(money);
 
         bankRepo.save(bankAccount);
+        return bankAccount.getBalance();
+
     }
 
 
@@ -62,7 +64,7 @@ public class BankService {
      * @param accountID the ID of the bank account
      * @param money     the money that gets removed
      */
-    public void removeBalance(String email, Long accountID, Double money) {
+    public Double removeBalance(String email, Long accountID, Double money) {
 
         // Find the BankAccount by email and accountId
         BankAccount bankAccount = bankRepo.findByUserEmailAndAccountId(email, accountID)
@@ -76,6 +78,8 @@ public class BankService {
 
         bankAccount.addBalance(-money);
         bankRepo.save(bankAccount);
+        return bankAccount.getBalance();
+
     }
 
 
@@ -85,7 +89,7 @@ public class BankService {
      * @param email     email of the owner
      * @param accountID the ID of the bank account
      */
-    public void deleteBalance(String email, Long accountID) {
+    public Double deleteBalance(String email, Long accountID) {
 
         // Find the BankAccount by email and accountId
         BankAccount bankAccount = bankRepo.findByUserEmailAndAccountId(email, accountID)
@@ -94,6 +98,8 @@ public class BankService {
 
         bankAccount.addBalance(-bankAccount.getBalance());
         bankRepo.save(bankAccount);
+        return bankAccount.getBalance();
+
     }
 
 
